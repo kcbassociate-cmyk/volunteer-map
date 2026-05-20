@@ -8,12 +8,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
   :root {
     --kcb-blue: #1a5f9e;
     --kcb-blue-dark: #0d3d6e;
-    --kcb-blue-light: #2e7fc0;
-    --kcb-blue-pale: #e6f0fa;
     --kcb-orange: #f5821f;
     --kcb-orange-light: #ffaa55;
     --kcb-cream: #f7f9fc;
@@ -21,28 +18,86 @@
     --kcb-text: #0d2340;
     --kcb-text-muted: #4a6080;
     --kcb-border: #b8d0e8;
-    --shadow-sm: 0 2px 8px rgba(26,95,158,0.12);
     --shadow-md: 0 4px 20px rgba(26,95,158,0.18);
     --shadow-lg: 0 8px 40px rgba(26,95,158,0.22);
   }
- 
-  body {
-    font-family: 'Open Sans', sans-serif;
-    background: var(--kcb-cream);
-    color: var(--kcb-text);
-    min-height: 100vh;
-  }
- 
-  header {
-    background: var(--kcb-blue-dark);
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 500px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
-  }
+  body { font-family: 'Open Sans', sans-serif; background: var(--kcb-cream); color: var(--kcb-text); min-height: 100vh; }
+  header { background: var(--kcb-blue-dark); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 70px; box-shadow: 0 2px 12px rgba(0,0,0,0.25); }
   .header-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
   .logo-icon { width: 44px; height: 44px; }
-  .logo-text { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1rem; color: #fff; line-height: 1.2; letter-spacing: -0.01em; }
-  .logo-text span { display: block; font-weight: 40
+  .logo-text { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1rem; color: #fff; line-height: 1.2; }
+  .logo-text span { display: block; font-weight: 400; font-size: 0.7rem; color: var(--kcb-orange-light); text-transform: uppercase; }
+  .header-nav { display: flex; gap: 1.5rem; align-items: center; }
+  .header-nav a { color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 600; }
+  .btn-donate { background: var(--kcb-orange); padding: 8px 18px; border-radius: 20px; }
+  .hero { background: #0d3d6e; padding: 3rem 2rem; text-align: center; color: white; }
+  .hero h1 { font-family: 'Montserrat', sans-serif; font-size: 2.5rem; margin-bottom: 1rem; }
+  .hero h1 em { color: var(--kcb-orange); font-style: normal; }
+  .search-wrap { max-width: 500px; margin: 0 auto; background: white; border-radius: 50px; display: flex; overflow: hidden; box-shadow: var(--shadow-lg); }
+  #zip-input { flex: 1; border: none; padding: 15px 25px; outline: none; font-size: 1rem; }
+  #search-btn { background: var(--kcb-orange); border: none; color: white; padding: 0 25px; font-weight: 800; cursor: pointer; }
+  .main { display: grid; grid-template-columns: 380px 1fr; min-height: 600px; }
+  .event-panel { background: white; border-right: 1px solid var(--kcb-border); overflow-y: auto; max-height: 700px; }
+  .panel-header { padding: 1.5rem; border-bottom: 1px solid var(--kcb-border); }
+  .event-card { padding: 1.2rem; border-bottom: 1px solid var(--kcb-border); cursor: pointer; }
+  .event-card:hover { background: #f0f7ff; }
+  .event-card.active { border-left: 5px solid var(--kcb-blue); background: #f0f7ff; }
+  .event-card-name { font-weight: 700; margin-bottom: 5px; font-size: 0.9rem; }
+  .event-date-pill { background: var(--kcb-blue); color: white; font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; }
+  .map-area { background: #e6f0fa; position: relative; padding: 20px; display: flex; align-items: center; justify-content: center; }
+  #ca-map-svg { width: 100%; height: auto; max-width: 450px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1)); }
+  .map-pin { cursor: pointer; }
+  .pin-outer { fill: var(--kcb-blue); transition: fill 0.2s; }
+  .pin-inner { fill: var(--kcb-orange); }
+  .map-pin:hover .pin-outer, .map-pin.highlighted .pin-outer { fill: var(--kcb-orange); }
+  #map-tooltip { position: absolute; display: none; background: white; border: 2px solid var(--kcb-blue); border-radius: 8px; padding: 12px; width: 220px; z-index: 100; box-shadow: var(--shadow-md); }
+  .tooltip-btn { display: block; background: var(--kcb-orange); color: white; text-align: center; padding: 8px; border-radius: 5px; text-decoration: none; margin-top: 8px; font-size: 0.8rem; font-weight: 700; }
+  footer { background: var(--kcb-blue-dark); color: white; text-align: center; padding: 2rem; font-size: 0.8rem; }
+  @media (max-width: 768px) { .main { grid-template-columns: 1fr; } .event-panel { max-height: 400px; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-logo">
+    <svg class="logo-icon" viewBox="0 0 44 44"><circle cx="22" cy="22" r="22" fill="#f5821f"/><text x="22" y="29" text-anchor="middle" font-family="Montserrat" font-weight="900" font-size="14" fill="#fff">KCB</text></svg>
+    <div class="logo-text">Keep California Beautiful<span>Efforts of One Result in Power of Many</span></div>
+  </div>
+  <nav class="header-nav">
+    <a href="#" class="btn-donate">Donate</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Find a <em>Volunteer Event</em></h1>
+  <div class="search-wrap">
+    <input id="zip-input" type="text" placeholder="Enter zip code...">
+    <button id="search-btn" onclick="searchByZip()">Search</button>
+  </div>
+</section>
+
+<div class="main">
+  <aside class="event-panel">
+    <div class="panel-header"><h2 id="result-count">15 Events</h2></div>
+    <div id="event-list"></div>
+  </aside>
+
+  <div class="map-area">
+    <div id="map-tooltip">
+      <div id="tt-name" style="font-weight:800; font-size:0.85rem; margin-bottom:5px;"></div>
+      <div id="tt-date" style="color:var(--kcb-blue); font-weight:700; font-size:0.75rem;"></div>
+      <a id="tt-link" class="tooltip-btn" href="#" target="_blank">Sign Up →</a>
+    </div>
+    <svg id="ca-map-svg" viewBox="0 0 500 650" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#ffffff" stroke="#1a5f9e" stroke-width="2" d="M430,20 L80,20 L75,40 L30,150 L40,400 L70,480 L120,580 L250,580 L400,480 L420,20 Z" />
+      <g id="pins-layer"></g>
+    </svg>
+  </div>
+</div>
+
+<footer>© 2026 Keep California Beautiful</footer>
+
+<script>
+const events = [
+  { name: "Arrowhead Clean Energy", location: "San Bernardino", date: "Sept 5, 2026", link: "https://x.gldn.io/e/TA06B2tth3b", lat: 34.1, lng: -117.2, zip: "92401" },
+  { name: "Sutro Wildfire Resiliency", location: "San Francisco", date: "Oct 17, 20
