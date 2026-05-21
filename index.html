@@ -14,7 +14,7 @@
   --text:#0d2340;--muted:#4a6080;--border:#b8d0e8;
 }
 body{font-family:"Open Sans",sans-serif;background:var(--cream);color:var(--text);min-height:100vh}
- 
+
 /* HEADER */
 header{background:var(--blue-dark);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:70px;box-shadow:0 2px 12px rgba(0,0,0,.25)}
 .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
@@ -25,7 +25,7 @@ nav{display:flex;gap:1.5rem;align-items:center}
 nav a{color:rgba(255,255,255,.85);text-decoration:none;font-size:.85rem;font-family:Montserrat,sans-serif;font-weight:600;transition:color .2s}
 nav a:hover{color:var(--orange-light)}
 .btn-donate{background:var(--orange)!important;color:#fff!important;padding:8px 18px;border-radius:20px;font-weight:700!important;font-size:.8rem!important}
- 
+
 /* HERO */
 .hero{background:linear-gradient(135deg,var(--blue-dark) 0%,#0a2d52 60%,#061c33 100%);padding:3.5rem 2rem 2.5rem;text-align:center}
 .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(245,130,31,.18);border:1px solid rgba(245,130,31,.4);color:var(--orange-light);padding:5px 14px;border-radius:20px;font-size:.75rem;font-family:Montserrat,sans-serif;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem}
@@ -41,15 +41,15 @@ nav a:hover{color:var(--orange-light)}
 #sbtn:hover{background:var(--orange-light)}
 .hint{color:rgba(255,255,255,.5);font-size:.78rem;margin-top:.6rem;text-align:center}
 #err{display:none;color:#ffb347;font-size:.82rem;margin-top:.5rem;text-align:center;font-weight:600}
- 
+
 /* STATS */
 .stats{background:var(--blue-pale);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;justify-content:center;gap:3rem}
 .stat-num{font-family:Montserrat,sans-serif;font-weight:800;font-size:1.5rem;color:var(--blue);text-align:center}
 .stat-lbl{font-size:.75rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;text-align:center}
- 
+
 /* MAIN */
 .main{display:grid;grid-template-columns:380px 1fr;min-height:calc(100vh - 260px)}
- 
+
 /* SIDEBAR */
 .panel{background:var(--white);border-right:1px solid var(--border);overflow-y:auto;max-height:calc(100vh - 330px);position:sticky;top:0}
 .panel-hdr{padding:1rem 1.25rem .75rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--white);z-index:2}
@@ -67,11 +67,11 @@ nav a:hover{color:var(--orange-light)}
 #noresults{padding:2.5rem 1.5rem;text-align:center;color:var(--muted);display:none}
 #noresults h3{font-family:Montserrat,sans-serif;font-weight:700;font-size:1rem;margin-bottom:.4rem;color:var(--text)}
 #noresults p{font-size:.85rem;line-height:1.5}
- 
+
 /* MAP */
 .map-area{position:relative;background:#d4e8f7;display:flex;align-items:center;justify-content:center;padding:20px}
 #ca-svg{width:100%;max-width:500px;height:auto;display:block;margin:0 auto}
- 
+
 /* PINS */
 .pin{cursor:pointer}
 .pin circle.outer{fill:var(--blue);transition:fill .15s}
@@ -79,7 +79,7 @@ nav a:hover{color:var(--orange-light)}
 .pin:hover circle.outer,.pin.active circle.outer{fill:var(--orange)}
 .pin:hover circle.inner,.pin.active circle.inner{fill:#fff}
 .pin{filter:drop-shadow(0 2px 3px rgba(13,61,110,.35))}
- 
+
 /* TOOLTIP */
 #tooltip{position:absolute;display:none;background:#fff;border:2px solid var(--blue);border-radius:12px;padding:12px 14px;max-width:260px;min-width:210px;box-shadow:0 4px 20px rgba(26,95,158,.25);pointer-events:none;z-index:20;transform:translateX(-50%)}
 #tooltip::after{content:"";position:absolute;bottom:-11px;left:50%;transform:translateX(-50%);border:11px solid transparent;border-top-color:var(--blue);border-bottom:none;border-left-width:7px;border-right-width:7px}
@@ -88,7 +88,7 @@ nav a:hover{color:var(--orange-light)}
 #tt-loc{font-size:.7rem;color:var(--muted);margin-bottom:8px;line-height:1.4}
 #tt-btn{display:block;text-align:center;background:var(--orange);color:#fff;text-decoration:none;font-family:Montserrat,sans-serif;font-weight:700;font-size:.72rem;padding:6px 12px;border-radius:20px;pointer-events:all;transition:background .15s}
 #tt-btn:hover{background:var(--orange-light)}
- 
+
 /* EMBED */
 .embed{background:var(--white);border-top:2px solid var(--border);padding:2rem}
 .embed h3{font-family:Montserrat,sans-serif;font-weight:800;font-size:1rem;color:var(--blue);margin-bottom:.4rem}
@@ -98,17 +98,17 @@ nav a:hover{color:var(--orange-light)}
 #copybtn{background:var(--orange);border:none;color:#fff;font-family:Montserrat,sans-serif;font-weight:800;font-size:.75rem;padding:7px 14px;border-radius:6px;cursor:pointer;white-space:nowrap;transition:background .15s}
 #copybtn:hover{background:var(--orange-light)}
 #copied{color:var(--blue);font-size:.78rem;font-weight:700;display:none;margin-top:.4rem}
- 
+
 /* FOOTER */
 footer{background:var(--blue-dark);color:rgba(255,255,255,.7);text-align:center;padding:1.2rem;font-size:.78rem}
 footer a{color:var(--orange-light);text-decoration:none}
 footer strong{color:#fff}
- 
+
 @media(max-width:760px){.main{grid-template-columns:1fr}.panel{max-height:300px;position:static}nav{display:none}}
 </style>
 </head>
 <body>
- 
+
 <header>
   <a class="logo" href="https://keepcabeautiful.org">
     <svg class="logo-icon" viewBox="0 0 44 44"><circle cx="22" cy="22" r="22" fill="#f5821f"/><text x="22" y="29" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="900" font-size="15" fill="#fff">KCB</text></svg>
@@ -122,7 +122,7 @@ footer strong{color:#fff}
     <a href="https://keepcabeautiful.org/donate/" class="btn-donate">Donate Now</a>
   </nav>
 </header>
- 
+
 <section class="hero">
   <div class="badge">🌿 2026 Volunteer Events</div>
   <h1>Find a <em>Volunteer Event</em><br>Near You</h1>
@@ -137,13 +137,13 @@ footer strong{color:#fff}
     <div id="err"></div>
   </div>
 </section>
- 
+
 <div class="stats">
   <div><div class="stat-num">15</div><div class="stat-lbl">Events Statewide</div></div>
   <div><div class="stat-num">14</div><div class="stat-lbl">Counties Covered</div></div>
   <div><div class="stat-num">2026</div><div class="stat-lbl">Event Year</div></div>
 </div>
- 
+
 <div class="main">
   <aside class="panel">
     <div class="panel-hdr">
@@ -153,7 +153,7 @@ footer strong{color:#fff}
     <div id="list"></div>
     <div id="noresults"><h3>No events found nearby</h3><p>Try a different zip or <button onclick="reset()" style="background:none;border:none;color:var(--blue);font-weight:700;cursor:pointer;font-size:.85rem">view all events</button>.</p></div>
   </aside>
- 
+
   <div class="map-area" id="map-area">
     <div id="tooltip">
       <div id="tt-name"></div>
@@ -161,25 +161,25 @@ footer strong{color:#fff}
       <div id="tt-loc"></div>
       <a id="tt-btn" href="#" target="_blank">Sign Up to Volunteer →</a>
     </div>
- 
+
     <!-- California SVG — path generated from US Census TopoJSON via D3 Mercator projection -->
     <!-- ViewBox 0 0 500 740 | Mainland CA + Channel Islands included -->
     <svg id="ca-svg" viewBox="0 0 500 740" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <filter id="sh"><feDropShadow dx="1" dy="2" stdDeviation="3" flood-color="rgba(13,61,110,.2)"/></filter>
       </defs>
- 
+
       <!-- Real California state outline from US Census Bureau boundary data -->
       <path id="ca-shape"
         fill="#c8dff5" stroke="#1a5f9e" stroke-width="1.5" stroke-linejoin="round"
         filter="url(#sh)"
         d="M281.268,596.194L283.95,596.435L288.645,598.984L292.166,600.041L292.333,601.243L295.016,604.174L294.177,606.238L291.998,605.038L287.639,604.702L286.633,603.021L286.633,599.464L283.28,598.695ZM281.1,621.194L282.609,621.003L286.298,626.6L293.004,632.811L291.327,632.62L289.483,633.671L286.633,631.57L284.453,628.129L282.106,622.439ZM259.976,595.473L261.317,595.136L261.484,597.108L259.64,596.771ZM242.539,565.258L243.881,566.081L245.725,565.403L245.725,566.856L242.875,567.049L241.366,566.033ZM235.665,607.343L238.013,607.007L241.366,608.686L242.707,610.174L240.527,610.893L237.174,609.886ZM219.738,562.546L222.756,562.885L224.935,563.951L227.45,563.708L230.636,565.791L233.821,565.984L234.995,564.096L238.348,565.064L236.504,567.146L231.809,567.678L228.959,569.178L221.918,568.017L221.75,565.064ZM204.481,566.807L208.17,566.42L209.679,565.403L211.858,565.791L214.038,564.871L214.038,567.194L217.056,567.823L217.223,570.146L210.349,572.757L207.667,570.968ZM195.093,564.774L197.775,563.951L198.781,562.594L199.787,564.29L201.966,565.548L198.446,565.839ZM19.221,91.921L45.208,92.136L46.717,91.813L59.626,91.867L69.015,91.219L73.709,91.651L92.99,91.543L99.193,91.273L115.121,91.327L122.665,91.597L148.484,92.029L167.597,92.244L200.625,92.244L216.05,92.136L216.05,92.19L216.05,169.621L216.217,171.422L216.217,211.255L216.05,231.812L215.882,232.49L215.882,256.265L215.714,262.589L216.05,276.19L220.409,280.164L239.689,297.153L258.802,314.382L269.364,323.686L285.962,338.877L306.919,358.019L317.314,367.432L338.606,387.306L391.083,436.805L430.314,474.428L442.05,485.965L466.696,510.129L466.528,517.325L469.211,520.112L470.384,523.484L474.24,526.56L478.599,538.212L478.264,541.036L480.444,541.377L485.641,546.24L487.988,547.164L489.832,549.788L490,552.167L485.809,555.322L485.641,556.244L482.791,557.262L481.114,559.202L477.258,560.608L475.917,561.964L475.917,565.306L471.222,570.92L472.396,571.887L472.731,574.545L471.725,574.835L471.558,577.299L472.731,580.389L473.067,583.959L471.725,584.538L471.055,589.84L471.725,592.055L470.217,593.211L465.522,599.849L462.337,600.282L463.678,602.733L462.169,605.854L464.684,607.822L464.349,614.633L463.175,617.843L465.522,621.099L466.025,620.285L468.205,621.481L469.378,620.859L472.061,621.242L474.576,627.747L474.408,631.522L471.39,634.53L471.725,636.439L467.534,637.679L463.51,637.059L462.672,638.538L392.927,644.544L350.342,648.781L349.839,644.115L348.33,641.16L346.989,640.207L344.642,641.303L344.139,638.156L344.307,634.768L342.965,632.811L344.474,629.898L342.965,622.199L340.786,616.118L339.277,613.53L332.571,604.27L328.379,601.339L326.703,598.888L324.188,597.108L322.679,597.204L319.494,592.633L315.134,589.792L312.787,589.069L309.434,586.322L305.243,582.078L301.219,580.196L300.884,582.464L297.363,583.573L294.345,582.898L292.669,581.692L290.154,581.402L289.483,579.568L290.992,577.927L291.16,575.85L288.812,570.242L286.968,567.146L284.118,564.725L278.25,564.677L274.562,565.064L271.879,566.807L269.532,564.967L264.838,564.193L258.634,561.335L256.622,561.238L252.599,558.669L249.749,551.827L248.072,551.342L245.222,548.767L244.551,548.913L241.198,545.754L237.677,544.538L236.671,543.566L231.306,543.371L228.624,544.538L225.606,543.323L221.918,543.809L215.714,540.89L211.858,540.89L209.343,540.16L201.966,540.501L193.919,541.571L193.751,540.062L191.572,536.849L188.889,535.387L186.877,535.582L185.871,534.023L188.051,527.048L186.207,524.119L187.548,518.303L184.698,515.662L186.207,510.031L186.374,503.168L183.357,500.42L181.009,500.076L180.506,501.107L175.98,498.407L174.136,496.049L175.812,489.608L175.477,487.147L173.633,484.537L169.106,483.847L164.579,478.82L161.561,473.836L157.538,472.601L154.687,469.341L153.849,465.336L151.167,463.011L149.993,461.179L147.646,459.446L146.64,454.54L145.802,452.804L142.448,451.366L139.934,446.203L135.742,441.531L130.21,438.348L128.365,436.108L127.024,432.124L127.192,430.031L125.348,424.993L125.683,420.399L123.839,419.6L125.515,415.901L128.533,417.801L130.042,416.301L131.216,413.25L132.557,406.189L129.036,398.716L127.024,396.557L125.348,396.004L123.839,397.411L117.635,397.31L112.941,393.894L109.253,388.765L106.905,387.86L106.57,386.299L103.72,383.278L103.049,380.154L103.888,373.646L101.876,369.151L101.54,366.522L99.528,365.814L98.523,364.145L98.355,360.906L99.193,359.538L99.528,355.637L98.523,348.839L100.87,347.417L103.552,347.011L104.558,348.23L105.732,352.696L104.223,353.152L106.067,358.576L105.732,359.944L110.258,361.108L114.785,365.157L116.126,364.904L118.474,368.089L120.486,367.938L119.48,365.915L117.468,364.954L115.791,360.551L114.618,355.029L111.097,352.29L110.761,349.956L107.073,348.636L108.582,344.877L107.408,341.42L104.893,341.471L102.546,338.012L103.888,338.47L105.396,337.146L105.396,335.11L108.582,335.211L110.258,333.225L108.582,329.606L104.223,327.361L102.043,328.892L99.696,329.198L100.031,331.594L99.193,333.938L101.708,336.535L99.696,337.808L99.025,340.047L102.211,342.895L101.037,343.607L99.193,342.132L100.367,345.741L97.852,346.554L96.343,344.623L91.984,341.522L89.804,342.132L85.948,338.724L84.272,336.026L81.422,334.346L78.739,333.938L75.386,335.619L77.733,329.147L78.236,326.698L76.224,322.001L77.398,320.979L74.715,317.401L72.871,317.912L72.703,314.485L69.853,309.057L66.5,306.443L64.153,305.469L60.465,302.186L54.261,293.144L51.914,291.652L50.573,289.542L45.375,284.907L41.352,278.926L43.699,274.899L43.531,272.729L41.184,266.213L38.502,259.843L37.328,254.397L37.831,249.256L40.01,242.391L39.172,239.684L39.172,236.297L36.825,231.499L36.154,225.859L33.472,223.978L32.466,221.102L26.598,214.138L25.424,213.824L25.424,211.57L24.083,209.314L20.395,207.635L12.18,199.703L12.85,196.389L12.18,192.703L10,188.804L11.509,183.634L13.856,177.876L20.898,163.844L22.742,158.801L23.915,152.477L21.904,150.508L21.736,145.343L22.407,145.236L24.251,139.958L26.263,126.918L25.424,120.168L22.91,113.299L21.568,108.14L20.059,108.355L17.209,105.45L18.886,101.466L19.724,95.537Z"/>
- 
+
       <g id="pins"></g>
     </svg>
   </div>
 </div>
- 
+
 <div class="embed">
   <h3>🔗 Add This Map to Your Website</h3>
   <p>Copy the code below and paste it into a WordPress "Custom HTML" block on keepcabeautiful.org.</p>
@@ -190,14 +190,14 @@ footer strong{color:#fff}
   <div id="copied">✅ Copied to clipboard!</div>
   <p style="margin-top:1rem;font-size:.8rem;color:var(--muted)"><strong>Steps:</strong> Upload this HTML file to your server → Edit your WordPress page → Add Custom HTML block → Paste the iframe code (replace YOUR_HOSTED_URL_HERE with the actual file URL).</p>
 </div>
- 
+
 <footer>
   <strong>Keep California Beautiful</strong> — 501(c)(3) Non-Profit &nbsp;|&nbsp;
   <a href="https://keepcabeautiful.org/privacy-policy/">Privacy Policy</a> &nbsp;|&nbsp;
   <a href="https://keepcabeautiful.org/contact/">Contact Us</a><br>
   <span style="font-size:.7rem;opacity:.6;display:block;margin-top:4px">© 2005–Present Keep California Beautiful. "Efforts of One Result in Power of Many."</span>
 </footer>
- 
+
 <script>
 // Event data — SVG pin coordinates derived from D3 Mercator projection matching the CA path above
 // Projection: geoMercator().fitSize([480,720], californiaFeature), translate offset +10,+10
@@ -263,10 +263,10 @@ const events = [
     link:"https://x.gldn.io/e/FkhtBDJv82b", x:349.1, y:638.5,
     zips:["92114","92105","92115","92116","92120"] },
 ];
- 
+
 let activeIdx = null;
 let visible = events.map((_,i)=>i);
- 
+
 function renderList(idxs) {
   const list = document.getElementById("list");
   const nr = document.getElementById("noresults");
@@ -286,7 +286,7 @@ function renderList(idxs) {
     list.appendChild(d);
   });
 }
- 
+
 function renderPins(idxs) {
   const g = document.getElementById("pins");
   g.innerHTML = "";
@@ -303,7 +303,7 @@ function renderPins(idxs) {
     g.appendChild(el);
   });
 }
- 
+
 function select(i) {
   activeIdx = i;
   renderList(visible);
@@ -313,7 +313,7 @@ function select(i) {
   const ci = visible.indexOf(i);
   if (ci>=0 && cards[ci]) cards[ci].scrollIntoView({behavior:"smooth",block:"nearest"});
 }
- 
+
 function showTip(i) {
   const ev = events[i];
   const tt = document.getElementById("tooltip");
@@ -322,26 +322,26 @@ function showTip(i) {
   document.getElementById("tt-loc").textContent = "📍 "+ev.location;
   document.getElementById("tt-btn").href = ev.link;
   tt.style.display = "block";
- 
+
   const svg = document.getElementById("ca-svg");
   const svgR = svg.getBoundingClientRect();
   const vb = svg.viewBox.baseVal;
   const sx = svgR.width/vb.width, sy = svgR.height/vb.height;
   const mapR = document.getElementById("map-area").getBoundingClientRect();
- 
+
   const px = svgR.left - mapR.left + ev.x*sx;
   const py = svgR.top  - mapR.top  + ev.y*sy;
- 
+
   tt.style.left = px+"px";
   tt.style.top  = (py - tt.offsetHeight - 18)+"px";
- 
+
   // Clamp horizontally
   const half = tt.offsetWidth/2;
   const raw = px - half;
   const clamped = Math.max(5, Math.min(raw, mapR.width - tt.offsetWidth - 5));
   tt.style.left = (clamped + half)+"px";
 }
- 
+
 function doSearch() {
   const zip = document.getElementById("zip").value.trim();
   const err = document.getElementById("err");
@@ -357,7 +357,7 @@ function doSearch() {
   renderList(visible);
   renderPins(visible);
 }
- 
+
 function reset() {
   visible=events.map((_,i)=>i); activeIdx=null;
   renderList(visible); renderPins(visible);
@@ -365,14 +365,14 @@ function reset() {
   document.getElementById("zip").value="";
   document.getElementById("err").style.display="none";
 }
- 
+
 function doCopy() {
   navigator.clipboard.writeText(document.getElementById("embed-code").textContent).then(()=>{
     const el=document.getElementById("copied"); el.style.display="block";
     setTimeout(()=>el.style.display="none",2500);
   });
 }
- 
+
 document.getElementById("zip").addEventListener("keypress",e=>{if(e.key==="Enter")doSearch();});
 document.getElementById("ca-svg").addEventListener("click",e=>{
   if(e.target.id==="ca-shape"||e.target.id==="ca-svg"){
@@ -380,7 +380,7 @@ document.getElementById("ca-svg").addEventListener("click",e=>{
     activeIdx=null; renderList(visible); renderPins(visible);
   }
 });
- 
+
 renderList(visible);
 renderPins(visible);
 </script>
